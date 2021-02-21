@@ -26,6 +26,7 @@ public class Airport {
 	private List<AirportGroup> airportGroups;
 	private List<TaxiwayPoint> taxiwayPoints;
 	private List<TaxiwayPath> taxiwayPaths;
+	private List<TaxiwayParking> taxiwayParkings;
 
 	private List<PaintedLine> paintedLines;
 
@@ -196,6 +197,17 @@ public class Airport {
 		this.paintedLines = paintedLines;
 	}
 
+	public List<TaxiwayParking> getTaxiwayParkings() {
+		return taxiwayParkings;
+	}
+
+	@XmlElement(name = "TaxiwayParking")
+	public void setTaxiwayParkings(List<TaxiwayParking> taxiwayParkings) {
+		this.taxiwayParkings = taxiwayParkings;
+	}
+
+	
+	
 }
 
 

@@ -11,8 +11,8 @@ public class TaxiwayPath {
 	private String type;
 	private String surface;
 	private String centerLine;
-	private TaxiwayPoint start;
-	private TaxiwayPoint end;
+	private TaxiwayItem start;
+	private TaxiwayItem end;
 	private float width;
 	private int weightLimit;
 	private int name;
@@ -67,23 +67,23 @@ public class TaxiwayPath {
 		this.centerLine = centerLine;
 	}
 
-	public TaxiwayPoint getStart() {
+	public TaxiwayItem getStart() {
 		return start;
 	}
 
 	@XmlIDREF
 	@XmlAttribute
-	public void setStart(TaxiwayPoint start) {
+	public void setStart(TaxiwayItem start) {
 		this.start = start;
 	}
 
-	public TaxiwayPoint getEnd() {
+	public TaxiwayItem getEnd() {
 		return end;
 	}
 
 	@XmlIDREF
 	@XmlAttribute
-	public void setEnd(TaxiwayPoint end) {
+	public void setEnd(TaxiwayItem end) {
 		this.end = end;
 	}
 
