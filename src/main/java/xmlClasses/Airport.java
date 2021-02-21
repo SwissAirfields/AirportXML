@@ -27,9 +27,17 @@ public class Airport {
 	private List<TaxiwayPoint> taxiwayPoints;
 	private List<TaxiwayPath> taxiwayPaths;
 	private List<TaxiwayParking> taxiwayParkings;
-
 	private List<PaintedLine> paintedLines;
 
+
+	public void createReferences() {
+		for (TaxiwayPath p : taxiwayPaths) {
+			p.getStart().addConnectedPath(p);
+			p.getEnd().addConnectedPath(p);
+		}
+	}
+	
+	
 	public String getRegion() {
 		return region;
 	}

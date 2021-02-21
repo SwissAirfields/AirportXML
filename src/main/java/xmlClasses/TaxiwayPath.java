@@ -22,6 +22,18 @@ public class TaxiwayPath {
 	private String excludeVegetationAround;
 	private String excludeVegetationInside;
 
+	public TaxiwayItem getOtherEnd(final TaxiwayItem thisEnd) {
+		TaxiwayItem result = null;
+		
+		if (thisEnd == start) {
+			result = end;
+		} else if (thisEnd == end) {
+			result = start;
+		}
+		
+		return result;
+	}
+	
 	public Integer getParentGroupID() {
 		return parentGroupID;
 	}

@@ -10,7 +10,6 @@ public class Main {
 		// TODO Auto-generated method stub
 		try {
 			FSData fsd = FSData.load("LSZF_original.xml");
-
 			System.out.println(fsd.getVersion());
 
 			FSData.write(fsd, "LSZF_rewritten.xml");

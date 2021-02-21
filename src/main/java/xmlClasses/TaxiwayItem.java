@@ -1,5 +1,8 @@
 package xmlClasses;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 
@@ -9,6 +12,15 @@ public class TaxiwayItem {
 	private String index;
 	private double lat;
 	private double lon;
+	private List<TaxiwayPath> connectedPaths = new ArrayList<>();
+
+	public List<TaxiwayPath> getConnectedPaths() {
+		return connectedPaths;
+	}
+	
+	public void addConnectedPath(final TaxiwayPath path) {
+		connectedPaths.add(path);
+	}
 
 	public Integer getParentGroupID() {
 		return parentGroupID;
