@@ -52,7 +52,7 @@ public class FSData {
 
 	public static FSData load(String filename) throws JAXBException, FileNotFoundException {
 		JAXBContext context = JAXBContext.newInstance(FSData.class);
-		FSData result = (FSData) context.createUnmarshaller().unmarshal(new FileReader("LSZF_original.xml"));
+		FSData result = (FSData) context.createUnmarshaller().unmarshal(new FileReader(filename));
 		for (Airport a: result.getAirports()) {
 			a.createReferences();
 		}

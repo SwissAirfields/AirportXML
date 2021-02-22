@@ -10,6 +10,19 @@ public class TaxiwaySection {
 	private List<TaxiwayPath> paths =  new ArrayList<>();
 	private List<TaxiwayItem> items = new ArrayList<>();
 	
+	public static int getNumberOfPathsWithCenterline(final TaxiwayItem point) {
+		int result = 0;
+		
+		for (TaxiwayPath p: point.getConnectedPaths()) {
+			if (p.getCenterLine().equals("TRUE")) {
+				result++;
+			}
+		}
+		
+		return result;
+	}
+
+	
 	public static TaxiwaySection extract(List<TaxiwayPath> list) {
 		TaxiwaySection result = new TaxiwaySection();
 		
@@ -18,16 +31,20 @@ public class TaxiwaySection {
 		// find section with centerline
 		for(;!currentPath.getCenterLine().equals("TRUE");) {
 			list.remove(currentPath);
-			currentPath = list.get(0);
+			if (list.size()>0) {
+				currentPath = list.get(0);
+			} else {
+				return null;
+			}
 		}
 		TaxiwayItem currentPoint = currentPath.getStart();
 		
 		// find beginning of section (number of connected paths != 2)
-		for(;(currentPoint.getConnectedPaths().size() == 2) && currentPath.getCenterLine().equals("TRUE");) {
+		for(;getNumberOfPathsWithCenterline(currentPoint) == 2;) {
 			
 			// get path on other side of point
 			for (TaxiwayPath p: currentPoint.getConnectedPaths()) {
-				if (p != currentPath) {
+				if ((p != currentPath) && (p.getCenterLine().equals("TRUE"))) {
 					currentPath = p;
 					break;
 				}
@@ -43,14 +60,14 @@ public class TaxiwaySection {
 		currentPoint = currentPath.getOtherEnd(currentPoint);
 		
 		// process until end of section
-		for (;(currentPoint.getConnectedPaths().size() == 2) && currentPath.getCenterLine().equals("TRUE");) {
+		for (;getNumberOfPathsWithCenterline(currentPoint) == 2;) {
 			list.remove(currentPath);
 			result.paths.add(currentPath);
 			result.items.add(currentPoint);
 			
 			// get path on other side of point
 			for (TaxiwayPath p: currentPoint.getConnectedPaths()) {
-				if (p != currentPath) {
+				if ((p != currentPath) && (p.getCenterLine().equals("TRUE"))) {
 					currentPath = p;
 					break;
 				}

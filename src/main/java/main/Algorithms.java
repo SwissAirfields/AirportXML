@@ -23,7 +23,10 @@ public class Algorithms {
 		// create list of sections
 		List<TaxiwaySection> sections = new ArrayList<>();
 		for (;remainingPaths.size() > 0;) {
-			sections.add(TaxiwaySection.extract(remainingPaths));
+			TaxiwaySection s = TaxiwaySection.extract(remainingPaths);
+			if (s != null) {
+				sections.add(s);
+			}
 		}
 		
 		for (TaxiwaySection s: sections) {
@@ -32,6 +35,7 @@ public class Algorithms {
 		
 	}
 	
+
 	private static void createLineFromSection(FSData fsd, final TaxiwaySection section) {
 		PaintedLine newLine = new PaintedLine();
 		newLine.setParentGroupID(7);
