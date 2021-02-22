@@ -6,6 +6,8 @@ import java.util.List;
 
 import xmlClasses.FSData;
 import xmlClasses.PaintedLine;
+import xmlClasses.PaintedLine.PaintedLineTrueAngle;
+import xmlClasses.PaintedLine.PaintedLineType;
 import xmlClasses.TaxiwayItem;
 import xmlClasses.TaxiwayPath;
 import xmlClasses.Vertex;
@@ -34,8 +36,8 @@ public class Algorithms {
 		PaintedLine newLine = new PaintedLine();
 		newLine.setParentGroupID(7);
 		newLine.setSurface("{AD55D2BC-BAE5-4708-8D33-42A0945E88BB}");
-		newLine.setTrueAngle("NONE");
-		newLine.setType("DEFAULT");
+		newLine.setTrueAngle(PaintedLineTrueAngle.NONE);
+		newLine.setType(PaintedLineType.DEFAULT);
 
 		List<Vertex> vertices = new ArrayList<>();
 		
