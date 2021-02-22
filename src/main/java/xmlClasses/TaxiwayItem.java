@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 
 public class TaxiwayItem {
-	private Integer parentGroupID;
-	private Integer groupIndex;
-	private String index;
-	private double lat;
-	private double lon;
-	private List<TaxiwayPath> connectedPaths = new ArrayList<>();
+	protected Integer parentGroupID;
+	protected Integer groupIndex;
+	protected String index;
+	protected double lat;
+	protected double lon;
+	protected List<TaxiwayPath> connectedPaths = new ArrayList<>();
 
 	public List<TaxiwayPath> getConnectedPaths() {
 		return connectedPaths;

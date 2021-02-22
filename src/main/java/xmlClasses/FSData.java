@@ -65,7 +65,7 @@ public class FSData {
 		JAXBContext context = JAXBContext.newInstance(FSData.class);
 	    Marshaller mar= context.createMarshaller();
 	    mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-	    mar.marshal(data, new File("LSZF_rewritten.xml"));
+	    mar.marshal(data, new File(filename));
 		
 	}
 

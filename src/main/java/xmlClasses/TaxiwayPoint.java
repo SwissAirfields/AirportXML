@@ -27,6 +27,11 @@ public class TaxiwayPoint extends TaxiwayItem {
 		this.orientation = orientation;
 	}
 
+	@Override
+	public String toString() {
+		return "TaxiwayPoint index="+index;
+	}
+
 
 }
 

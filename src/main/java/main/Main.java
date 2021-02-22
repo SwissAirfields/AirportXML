@@ -9,10 +9,11 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			FSData fsd = FSData.load("LSZF_original.xml");
+			FSData fsd = FSData.load("LSZF_original2.xml");
 			System.out.println(fsd.getVersion());
-
-			FSData.write(fsd, "LSZF_rewritten.xml");
+			Algorithms.TaxiwayLinesToPaintedLines(fsd);
+			
+			FSData.write(fsd, "LSZF_rewritten2.xml");
 
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block

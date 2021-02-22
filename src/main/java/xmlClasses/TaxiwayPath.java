@@ -171,6 +171,12 @@ public class TaxiwayPath {
 		this.excludeVegetationInside = excludeVegetationInside;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "TaxiwayPath start="+getStart().getIndex()+ " end="+getEnd().getIndex();
+	}
+
 }
 
 //<TaxiwayPath groupIndex="292" type="TAXI" surface="{B008C78F-E00D-4776-9AFB-3842E7C0D02F}" 
