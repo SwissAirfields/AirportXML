@@ -1,0 +1,25 @@
+<jxb:bindings version="1.0" 
+  xmlns:jxb="http://java.sun.com/xml/ns/jaxb" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+  jxb:extensionBindingPrefixes="xjc">
+    <jxb:bindings schemaLocation="bglcomp.xsd" node="/xs:schema">
+
+  
+		<!-- rename dme element -->
+        <jxb:bindings node="//xs:complexType[@name='ctVor']">
+            <jxb:bindings node=".//xs:attribute[@name='dme']">
+                <jxb:property name="hasDme"/>
+            </jxb:bindings>
+        </jxb:bindings>
+
+
+		<jxb:bindings node="//xs:simpleType[@name='stLongitude']">
+			<jxb:javaType name="double"/>
+		</jxb:bindings>
+    </jxb:bindings>
+
+</jxb:bindings>
+
+
+
