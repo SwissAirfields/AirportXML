@@ -10,7 +10,7 @@ package generatedXmlClasses;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class Adapter1
+public class Adapter2
     extends XmlAdapter<String, Double>
 {
 
