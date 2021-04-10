@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import cli.CommandTaxiwayToPaintedLines;
 import dataAccess.Airport;
 import dataAccess.PaintedLine;
 import dataAccess.TaxiwayItem;
@@ -16,7 +17,7 @@ import generatedXmlClasses.StPaintedLineType;
 
 public class TaxiwayToPaintedLines {
 
-	public static void TaxiwayLinesToPaintedLines(Airport airport) {
+	public static void processAirport(Airport airport, final CommandTaxiwayToPaintedLines command) {
 
 		// create copy of TaxiwayPath-List
 		List<TaxiwayPath> remainingPaths = new LinkedList<>();
@@ -30,33 +31,49 @@ public class TaxiwayToPaintedLines {
 				sections.add(s);
 			}
 		}
+		System.out.println("Extracted " + sections.size() + " line sections from taxiway objects");
 
 		for (TaxiwaySection s : sections) {
-			createLineFromSection(airport, s);
+			createLineFromSection(airport, s, command);
 		}
 
 	}
 
-	private static void createLineFromSection(Airport airport, final TaxiwaySection section) {
+	private static void createLineFromSection(Airport airport, final TaxiwaySection section,
+			final CommandTaxiwayToPaintedLines command) {
 		PaintedLine newLine = airport.newPaintedLine();
 		// newLine.getElement().setParentGroupID(7);;
-		newLine.getElement().setSurface("{AD55D2BC-BAE5-4708-8D33-42A0945E88BB}");
-		newLine.getElement().setTrueAngle(StPaintedLineTrueAngle.NONE);
-		newLine.getElement().setType(StPaintedLineType.DEFAULT);
+		if (command.getMaterial() != null) {
+			newLine.getElement().setSurface("{" + command.getMaterial() + "}");
+		}
+		newLine.getElement().setType(StPaintedLineType.fromValue(command.getLinetype()));
 
+		newLine.getElement().setTrueAngle(StPaintedLineTrueAngle.NONE);
 		newLine.getElement().getVertex();
 
 		for (TaxiwayItem<?> item : section.getItems()) {
 			CtVertexLL v = new CtVertexLL();
 			if (item instanceof TaxiwayPoint) {
-				v.setLat(((TaxiwayPoint)item).getElement().getLat());
-				v.setLon(((TaxiwayPoint)item).getElement().getLon());
+				v.setLat(((TaxiwayPoint) item).getElement().getLat());
+				v.setLon(((TaxiwayPoint) item).getElement().getLon());
 			} else if (item instanceof TaxiwayParking) {
-				v.setLat(((TaxiwayParking)item).getElement().getLat());
-				v.setLon(((TaxiwayParking)item).getElement().getLon());
+				v.setLat(((TaxiwayParking) item).getElement().getLat());
+				v.setLon(((TaxiwayParking) item).getElement().getLon());
 			}
-			
+
 			newLine.getElement().getVertex().add(v);
+		}
+
+		// add middle point for lines with only 2 vertices
+		if (command.getExtend()) {
+			if (newLine.getElement().getVertex().size() == 2) {
+				CtVertexLL v = new CtVertexLL();
+				v.setLat((newLine.getElement().getVertex().get(0).getLat()
+						+ newLine.getElement().getVertex().get(1).getLat()) / 2);
+				v.setLon((newLine.getElement().getVertex().get(0).getLon()
+						+ newLine.getElement().getVertex().get(1).getLon()) / 2);
+				newLine.getElement().getVertex().add(1, v);
+			}
 		}
 	}
 
