@@ -1,0 +1,51 @@
+Usage: AirportXML [options] [command] [command options]
+  Options:
+  * --input, -i
+      Input file name
+    --output, -o
+      Output file name
+      Default: out.xml
+  Commands:
+    tw2pl      Convert taxiway centerlines to painted lines
+      Usage: tw2pl [options]
+        Options:
+          --material, -m
+            GUID of the material to be used (without curlies) for custom lines
+          --linetype, -t
+            line type of the new painted lines
+            Default: DEFAULT
+          --extend, -x
+            adds a 3rd point in the middle of segments with only 2 points
+            Default: false
+
+
+
+command line: 
+java -jar airportXML.jar [parameters]
+(see "Usage" above for details)
+
+example:
+java -jar airportXML.jar -i myAirport.xml -o myAirportAltered.xml tw2pl -x -t ENHANCED_CENTER -m AD55D2BC-BAE5-4708-8D33-42A0945E88BB
+
+
+General comments
+================
+* use at your own risk. If in doubt use a compare tool to check if the result looks plausible. 
+* Some irrelevant changes can't be avoided - they should all get reversed again though when next saving in FS2020.
+  * The jaxb xml components insist on using white spaces for xml indentation. FS2020 uses tabs.
+  * Comments get removed (scenery model names).
+  * The order of attributes (and to a lesser extent elements) can change.
+  * Trailing fractional zeros in floating point values are omitted.
+
+
+Command details
+===============
+tw2pl
+This command creates new painted lines for the centerline of all taxiways (with centerline visible). This should give you more control over the appearance of the taxiway lines. The idea is to only use taxiways for their functional component (AI, ATC etc.) and not their visual component. For the visuals aprons and painted lines can be used.
+* As creating and editing taxiways is much more comfortable and flexible than painted lines, it is a feasible workflow to create taxiways, then convert them to painted lines.
+* There is some manual post processing needed. Painted lines and taxiways interact with each other. So the taxiways points have to be moved away from the painted line vertices. Better yet: completely delete them and redraw a simplified invisible version of the taxiways.
+* There are no explicit junctions in painted lines. So the algorithm creates separate line segments between the joints.
+* If two endpoints of painted lines get close to each other the lines appear joined automatically. This can create some funky effects which might require fudging the vertices a bit. 
+* Painted line joints don't work well with lines that are only 2 vertices long. For that reason there is the "--extend" option, that inserts a third point in the middle.
+* You can add points to the painted lines in the editor by right clicking on them. This might sometimes be necessary if a long straight line segment distorts a nice circular bend. Just add a vertex to the long part near the bend.
+
